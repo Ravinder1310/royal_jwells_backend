@@ -1,8 +1,11 @@
 import express from "express";
-import { LoginMiddleware, isAdmin } from "../middlewares/authMiddleware.js";
-import { createProductController, deleteProductController,productCategoryController, getProductController,getSingleProductController, productListController, productPhotoController, searchProductController, similarProductController, updateProductController,productCountController } from "../controllers/productControllers.js";
+import { LoginMiddleware, isAdmin } from "../middleware/authMiddleware.js";
+import { BraintreePaymentController, BraintreeTokenController, createProductController, deleteProductController, getProductController, getSingleProductController, productCategoryController, productCountController, productFilterController, productListController, productPhotoController, searchProductController, similarProductController, updateProductController } from "../controllers/ProductController.js";
+import formidable from "express-formidable"
+import { BraintreeGateway } from "braintree";
 import multer from "multer";
 
+// import upload1 from "../middleware/upload.js";
 
 const router = express.Router();
 
@@ -21,7 +24,11 @@ const upload = multer({
         fileSize: 1024 * 1024 * 5, // 5MB
         parameterLimit: 10000,
         fields: [
-          { name: "photo", maxCount: 1 }
+          { name: "photo1", maxCount: 1 },
+          { name: "photo2", maxCount: 1 },
+          { name: "photo3", maxCount: 1 },
+          { name: "photo4", maxCount: 1 },
+          { name: "photo5", maxCount: 1 }
         ]
       }
     });
@@ -31,10 +38,15 @@ const upload = multer({
 router.post(
   "/create-product",
   upload.fields([
-    { name: "photo", maxCount: 1 }
+    { name: "photo1", maxCount: 1 },
+    { name: "photo2", maxCount: 1 },
+    { name: "photo3", maxCount: 1 },
+    { name: "photo4", maxCount: 1 },
+    { name: "photo5", maxCount: 1 }
   ]),
   LoginMiddleware,
   isAdmin,
+  // formidable(),
   createProductController 
 );
 
@@ -43,6 +55,7 @@ router.put(
     "/update-product/:pid",
     LoginMiddleware,
     isAdmin,
+    // formidable(),
     updateProductController
   );
 
@@ -57,6 +70,9 @@ router.get('/product-photo/:pid',productPhotoController)
 
 // delete product
 router.delete('/delete-product/:pid',deleteProductController);
+
+// filtered products
+router.post('/product-filter', productFilterController);
 
 // product count
 router.get('/product-count', productCountController)
@@ -73,5 +89,11 @@ router.get('/similar-product/:pid/:cid', similarProductController);
 // product according to single category
 router.get('/product-category/:slug', productCategoryController);
 
+//payment routes
+// token
+router.get('/braintree/token', BraintreeTokenController);
+
+//payments
+router.post('/braintree/payment', LoginMiddleware, BraintreePaymentController)
 
 export default router

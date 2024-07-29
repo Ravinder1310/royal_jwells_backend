@@ -27,9 +27,25 @@ const productSchema = new mongoose.Schema({
         ref:'Category',
         required:true
     },
-    photo: {
+    quantity:{
+        type:Number,
+        required:true
+    },
+    photo1: {
         type: String,
     },
+    photo2: {
+        type: String,
+    },
+      photo3: {
+        type: String,
+      },
+      photo4: {
+        type: String,
+      },
+      photo5: {
+        type: String,
+      },
     shipping:{
         type:Boolean
     } 
