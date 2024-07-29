@@ -11,7 +11,7 @@ router.post(
   createCategoryController
 );
 
-// update category
+// update category  
 router.put(
   "/update-category/:id",
   LoginMiddleware,
