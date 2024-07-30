@@ -27,7 +27,7 @@ export const createProductController = async (req, res) => {
    
     const { name, slug, description, price, offer,offerPrice, category, quantity } =
       req.body;
-    const {photo1, photo2, photo3, photo4, photo5} = req.files
+    const {photo1, photo2, photo3} = req.files
       // const {photo1,photo2} = req.files;
       // console.log(req.body);
 
@@ -69,9 +69,7 @@ export const createProductController = async (req, res) => {
       quantity,
       photo1: photo1[0].path,  // save the file path
       photo2: photo2[0].path,
-      photo3: photo3[0].path,  // optional photos
-      photo4: photo4[0].path,
-      photo5: photo5[0].path,
+      photo3: photo3[0].path,
       slug:slugify(name)
     });
 
@@ -211,7 +209,7 @@ export const updateProductController = async (req, res) => {
     }
     if(photo2){
       product.photo2.data = fs.readFileSync(photo2.path);
-      product.photo2.contentType = photo2.type
+      product.photo2.contentType = photo2.type;
     }
     product.offerPrice = Math.floor(price - ((price * offer)/100))
     await product.save();
