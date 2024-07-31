@@ -5,8 +5,8 @@ import { fileURLToPath } from 'url';
 import morgan from 'morgan';
 import Connection  from './config/db.js';
 import router from './routes/authRoute.js';
-import CategoryRoutes from "./routes/CategoryRoutes.js"
-import ProductRoutes from "./routes/ProductRoutes.js"
+import CategoryRoutes from "./routes/categoryRoutes.js"
+import ProductRoutes from "./routes/productRoutes.js"
 import cors from "cors";
 import bodyParser from "body-parser";
 
