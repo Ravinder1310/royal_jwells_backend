@@ -43,6 +43,6 @@ router.get('/orders', LoginMiddleware, getOrdersController);
 router.get('/all-orders', LoginMiddleware,isAdmin, getAllOrdersController);
 
 // orders status update
-router.put('/order-status',LoginMiddleware,isAdmin,orderStatusController)
+router.put('/order-status/:orderId',LoginMiddleware,isAdmin,orderStatusController)
 
 export default router;

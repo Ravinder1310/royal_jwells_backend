@@ -25,7 +25,7 @@ router.get("/get-category", categoryController);
 
 
 // single category
-router.get("/single-category/:slug", singleCategoryController);
+router.get("/single-category/:slug",  singleCategoryController);
 
 
 // delete category

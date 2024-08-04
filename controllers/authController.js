@@ -47,13 +47,13 @@ export const registerController = async(req,res) => {
          }
 
         // checking user
-        const existingUser = await UserModel.findOne({email})
+        const existingUser = await UserModel.findOne({phone})
          
          // existing user
         if(existingUser){
           return res.send(200).send({
             success:false,
-            message:"Already Register please login"
+            message:"Already Registered please login"
           })
         }
 
@@ -80,20 +80,20 @@ export const registerController = async(req,res) => {
 // POST LOGIN
 export const loginController = async(req,res) => {
    try {
-    const {email,password} = req.body
+    const {phone,password} = req.body
     //validation 
-    if(!email || !password){
+    if(!phone || !password){
         return res.status(404).send({
             success:false,
-            message:"Invalid email or password"
+            message:"Wrong number or password"
         })
     }
     //check user
-    const user = await UserModel.findOne({email});
+    const user = await UserModel.findOne({phone});
     if(!user){
         return res.status(500).send({
             success:false,
-            message:"Email is not registered"
+            message:"Phone number is not registered"
         })
     }
     const match = await ComparePassword(password,user.password)
@@ -136,9 +136,9 @@ export const loginController = async(req,res) => {
 // forgotPasswordController
 export const forgotPasswordController = async(req,res) => {
       try {
-        const {email,answer,newPassword} = req.body
-        if(!email){
-            res.status(400).send({message:"Email is required"})
+        const {phone,answer,newPassword} = req.body
+        if(!phone){
+            res.status(400).send({message:"Phone is required"})
         }
         if(!answer){
             res.status(400).send({message:"Answer is required"})
@@ -148,12 +148,12 @@ export const forgotPasswordController = async(req,res) => {
         }
 
        // check
-        const user = await UserModel.findOne({email,answer})
+        const user = await UserModel.findOne({phone,answer})
 
         if(!user){
             return res.status(404).send({
                 success:false,
-                message:"Wrong email or answer"
+                message:"Wrong phone number or answer"
             })
         }
 
@@ -247,18 +247,18 @@ export const updateProfileController = async (req, res) => {
   };
 
   // order status update controller
-  export const orderStatusController = async(req,res) => {
-       try {
-        const {orderId} = req.params
-        const {status} = req.body
-        const orders = await OrderModel.findByIdAndUpdate(orderId, {status}, {new:true});
-        res.json(orders)
-       } catch (error) {
-        console.log(error);
-        res.status(500).send({
-          success:false,
-          message:"Error while updating the status",
-          error
-        })
-       }
+  export const orderStatusController = async (req, res) => {
+    try {
+      const { orderId } = req.params;
+      const { status} = req.body;
+      const order = await OrderModel.findByIdAndUpdate(orderId, { status }, { new: true });
+      res.json(order);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        success: false,
+        message: "Error while updating the status",
+        error
+      });
+    }
   }
