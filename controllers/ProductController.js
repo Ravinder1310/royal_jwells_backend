@@ -1,9 +1,9 @@
 import slugify from "slugify";
-import ProductModel from "../models/productModel.js";
+import ProductModel from "../models/ProductModel.js";
 import fs from "fs";
 import CategoryModel from "../models/categoryModel.js";
 import braintree from "braintree";
-import OrderModel from "../models/orderModel.js";
+import OrderModel from "../models/OrderModel.js";
 import dotenv from "dotenv";
 // import upload1 from "../middleware/upload.js";
 

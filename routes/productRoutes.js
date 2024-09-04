@@ -1,6 +1,6 @@
 import express from "express";
 import { LoginMiddleware, isAdmin } from "../middleware/authMiddleware.js";
-import { BraintreePaymentController, BraintreeTokenController, createProductController, deleteProductController, getProductController, getSingleProductController, productCategoryController, productCountController, productFilterController, productListController, productPhotoController, searchProductController, similarProductController, updateProductController } from "../controllers/productController.js";
+import { BraintreePaymentController, BraintreeTokenController, createProductController, deleteProductController, getProductController, getSingleProductController, productCategoryController, productCountController, productFilterController, productListController, productPhotoController, searchProductController, similarProductController, updateProductController } from "../controllers/ProductController.js";
 import formidable from "express-formidable"
 import { BraintreeGateway } from "braintree";
 import multer from "multer";
